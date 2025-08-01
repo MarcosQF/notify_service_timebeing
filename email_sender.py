@@ -1,7 +1,10 @@
 import logging
+import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+from dotenv import load_dotenv
 
 logging.basicConfig(
     level=logging.INFO,
@@ -9,12 +12,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+load_dotenv()
+
 
 def send_email(subject: str, body: str, to_email: str):
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-    from_email = "timebeing.notify@gmail.com"
-    from_password = "zahq zxkd jazi uqma"
+    smtp_server = os.getenv("EMAIL_HOST")
+    smtp_port = int(os.getenv("EMAIL_PORT", 587))
+    from_email = os.getenv("EMAIL_USER")
+    from_password = os.getenv("EMAIL_PASS")
 
     message = MIMEMultipart()
     message["From"] = from_email

@@ -1,7 +1,9 @@
 import json
 import logging
+import os
 
 import pika
+from dotenv import load_dotenv
 
 from email_sender import send_email
 
@@ -11,13 +13,15 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+load_dotenv()
+
 
 class RabbitmqConsumer:
     def __init__(self) -> None:
-        self.__host = "localhost"
-        self.__port = 5672
-        self.__username = "guest"
-        self.__password = "guest"
+        self.__host = os.getenv("RABBITMQ_HOST", "localhost")
+        self.__port = int(os.getenv("RABBITMQ_PORT", 5672))
+        self.__username = os.getenv("RABBITMQ_USER", "guest")
+        self.__password = os.getenv("RABBITMQ_PASS", "guest")
         self.__queue = "notifier"
         self.__connection = None
         self.__channel = self.__create_channel()
