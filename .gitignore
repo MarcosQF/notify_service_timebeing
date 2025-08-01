@@ -1,0 +1,51 @@
+# Bytecode do Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Arquivos de log
+*.log
+
+# Configurações de ambiente
+.env
+
+# Cache do Poetry
+.cache/
+poetry.lock
+
+# Diretórios do Poetry
+.dist/
+.build/
+site/
+.eggs/
+*.egg-info/
+*.egg
+
+# Configuração de editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Arquivos do Docker
+*.pid
+*.sock
+
+# Arquivos de build
+*.tar.gz
+*.whl
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.bak
+*.tmp
+
+# Arquivos de cobertura de testes
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
