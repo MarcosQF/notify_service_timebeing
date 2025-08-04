@@ -1,3 +1,5 @@
+import json
+
 from fastapi import WebSocket
 
 
@@ -13,6 +15,7 @@ class ConnectionManager:
             f"✅ User {user_id} connected. Total connections: \
             {len(self.active_connections)}"
         )
+
     def disconnect(self, user_id: str):
         self.active_connections.pop(user_id, None)
         print(
@@ -20,10 +23,21 @@ class ConnectionManager:
             {len(self.active_connections)}"
         )
 
-    async def send_personal_message(self, message: str, user_id: str):
+    async def send_personal_message(
+        self,
+        message: str,
+        user_id: str,
+        level: str = "info",
+        title: str = "Notificação",
+    ):
         if user_id in self.active_connections:
             websocket = self.active_connections[user_id]
-            await websocket.send_text(message)
+            notification = {
+                "type": level,
+                "title": title,
+                "message": message,
+            }
+            await websocket.send_text(json.dumps(notification))
         else:
             print(f"⚠️ User {user_id} not found in active connections")
 

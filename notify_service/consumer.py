@@ -68,7 +68,13 @@ class AsyncRabbitmqConsumer:
                 logger.info(f"Mensagem recebida: title={title}, email={email}")
                 send_email(subject="Vencimento de Task", to_email=email, body=msg)
 
-                await manager.send_personal_message(msg, user_id=email)
+                await manager.send_personal_message(
+                    message=msg,
+                    user_id=email,
+                    level="info",
+                    title="⏰ Tarefa próxima do vencimento!"
+                )
+
                 session = get_session()
                 try:
                     db_notification = Notification(
