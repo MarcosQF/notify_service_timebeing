@@ -23,5 +23,5 @@ COPY . .
 # Instala dependências com Poetry
 RUN poetry install --no-root --no-interaction --no-ansi
 
-# Comando padrão para rodar o consumidor
-CMD ["python", "main.py"]
+# Comando padrão para rodar o Uvicorn com FastAPI
+CMD ["poetry", "run", "uvicorn", "notify_service.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
