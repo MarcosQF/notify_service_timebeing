@@ -1,10 +1,9 @@
 import logging
-import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from dotenv import load_dotenv
+from .settings import settings
 
 logging.basicConfig(
     level=logging.INFO,
@@ -12,14 +11,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-load_dotenv()
-
 
 def send_email(subject: str, body: str, to_email: str):
-    smtp_server = os.getenv("EMAIL_HOST")
-    smtp_port = int(os.getenv("EMAIL_PORT", 587))
-    from_email = os.getenv("EMAIL_USER")
-    from_password = os.getenv("EMAIL_PASS")
+    smtp_server = settings.EMAIL_HOST
+    smtp_port = settings.EMAIL_PORT
+    from_email = settings.EMAIL_USER
+    from_password = settings.EMAIL_PASS
 
     message = MIMEMultipart()
     message["From"] = from_email
